@@ -1,0 +1,29 @@
+name: Aion Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  aion-review:
+    name: Aion High-Precision Review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Aion Reviewer
+        uses: Wall-E-30/code-reviewer@main
+        with:
+          provider: 'openrouter'                          # or 'groq', 'openai'
+          model: 'qwen/qwen-2.5-coder-32b-instruct'      # fast & high accuracy
+          api-key: ${{ secrets.OPENROUTER_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          mode: 'visible'                                 # 'visible' posts PR comments, 'shadow' logs silently
+          fail-on-findings: 'true'                        # 'true' blocks merge on bugs, 'false' is advisory
+          max-comments: '5'                               # max inline comments per review (anti-spam)
+          min-confidence: '0.7'                           # confidence filter (0.0 to 1.0)
