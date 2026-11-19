@@ -16,13 +16,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Run Aion Reviewer
+      - name: Run Aion Code Reviewer
         uses: Wall-E-30/code-reviewer@main
         with:
-          provider: 'openrouter'                          # or 'groq', 'openai'
-          model: 'qwen/qwen-2.5-coder-32b-instruct'      # fast & high accuracy
-          api-key: ${{ secrets.OPENROUTER_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          provider: 'openrouter'
+          model: 'qwen/qwen-2.5-coder-32b-instruct:free'
+          api-key: ${{ secrets.OPENROUTER_API_KEY }}
           mode: 'visible'                                 # 'visible' posts PR comments, 'shadow' logs silently
           fail-on-findings: 'true'                        # 'true' blocks merge on bugs, 'false' is advisory
           max-comments: '5'                               # max inline comments per review (anti-spam)
