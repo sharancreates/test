@@ -21,7 +21,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           provider: 'openrouter'
-          model: 'qwen/qwen-2.5-coder-32b-instruct:free'
+          model: 'openrouter/free'
           api-key: ${{ secrets.OPENROUTER_API_KEY }}
           mode: 'visible'                                 # 'visible' posts PR comments, 'shadow' logs silently
           fail-on-findings: 'true'                        # 'true' blocks merge on bugs, 'false' is advisory
